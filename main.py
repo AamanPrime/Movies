@@ -20,7 +20,7 @@ class Movie(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(120), unique=True, nullable=False)
     year = db.Column(db.Integer, nullable=False, unique=False)
-    description = db.Column(db.Text, nullable=False, unique=False)
+    description = db.Column(db.String(120), nullable=False, unique=False)
     rating = db.Column(db.Integer, nullable=True, unique=False)
     ranking = db.Column(db.Integer, nullable=True, unique=True)
     review = db.Column(db.String(120), nullable=True, unique=False)
