@@ -36,7 +36,7 @@ class MyForm(FlaskForm):
 class Search(FlaskForm):
     name = StringField(label="Movie Name", validators=[DataRequired()])
     submit = SubmitField(label="Search")
-
+db.create_all()
 
 @app.route("/")
 def home():
