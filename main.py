@@ -5,7 +5,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 import requests
-
+import os
 
 api_key = "c6e8fdab8f6057a5f89a0972858aad0d"
 app = Flask(__name__)
