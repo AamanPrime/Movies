@@ -89,7 +89,7 @@ def add(movie_id):
     new_movie = Movie(
         title=data["original_title"],
         year=data["release_date"].split('-')[0],
-        description='Aaman Is Great',
+        description=data['overview'],
         img_url=f"https://image.tmdb.org/t/p/w500{data['poster_path']}",
 
     )
