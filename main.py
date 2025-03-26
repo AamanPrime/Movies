@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, url_for
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
+from wtforms import StringField, SubmitField, IntegerField
 from wtforms.validators import DataRequired
 import requests
 import os
@@ -32,6 +32,12 @@ class MyForm(FlaskForm):
     review = StringField(label="Review", validators=[DataRequired()])
     submit = SubmitField(label="Submit")
 
+class AddManual(FlaskForm):
+    title = StringField(label="Title", validators=[DataRequired()])
+    year = IntegerField(label="Year", validators=[DataRequired()])
+    description = StringField(label="Description", validators=[DataRequired()])
+    imgURL = StringField(label="Image URL", validators=[DataRequired()])
+    submit = SubmitField(label="Submit")
 
 class Search(FlaskForm):
     name = StringField(label="Movie Name", validators=[DataRequired()])
@@ -81,6 +87,20 @@ def search():
 
     return render_template("add.html", form=form)
 
+@app.route("/addManually", methods=['POST', 'GET'])
+def addManually():
+    form = AddManual()
+    if form.validate_on_submit():
+        new_movie = Movie(
+            title=form.title.data,
+            year=form.year.data,
+            description=form.description.data,
+            img_url=form.imgURL.data,
+        )
+        db.session.add(new_movie)
+        db.session.commit()
+        return redirect(url_for('edit', id=new_movie.id))
+    return render_template("addmanual.html", form=form)
 
 @app.route("/add<movie_id>", methods=['POST', 'GET'])
 def add(movie_id):
